@@ -36,7 +36,7 @@ jobs:
           if [[ -z "$UPSTREAM_REPO" ]]; then
             UPSTREAM_REPO="$(gh repo view --json parent | jq -r '.parent.owner.login + "/" + .parent.name')"
           fi
-          if [[ -z "$UPSTREAM_REPO" ]]; then
+          if [[ "$UPSTREAM_REPO" =~ ^/ || "$UPSTREAM_REPO" =~ /$ ]]; then
             echo "Not a forked repo, or parent could not be detected. Please provide the upstream repo URL."  > /dev/stderr
             exit 1  
           fi;
